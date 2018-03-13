@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<configurations>
+      <!-- 是否禁止indels,1禁止,0允许 -->
+    <no_indels>0</no_indels>
+      <!-- 最大允许的错误率(类型:小数,0~1) -->
+    <error_rate>0.1</error_rate>
+      <!-- 最小重叠区域overlap(类型:整数,0~整数最大值) -->
+    <overlap>3</overlap>
+      <!-- 质量值最小阈值(类型:小数) -->
+    <quality_threshold>0</quality_threshold>
+      <!-- 质量值最小阈值占比(类型:小数) -->
+    <quality_ratio>0</quality_ratio>
+      <!-- READ整体不符合上面两个条件是否找回,1找回,0不找回 -->
+    <retrieve>0</retrieve>
+      <!-- 去除READ两端低于此值的碱基(类型:小数) -->
+    <quality_low>0</quality_low>
+      <!-- 是否去除两端N,1去除,0 不去除 -->
+    <trim_n>0</trim_n>
+      <!-- N碱基占比最低值(类型:小数,0~1) -->
+    <ratio_n>0</ratio_n>
+      <!-- 质量值基数(类型:整数) -->
+    <quality_base>33</quality_base>
+      <!-- 输出文件切割成几份 -->
+    <split>1</split>
+      <!-- 线程默认配置 -->
+    <threads>3</threads>
+      <!-- 每次请求读入reads数 -->
+    <reads>300000</reads>  <!-- 1572864 50000 -->
+      <!-- 是否开启参数预览模式,0关闭,1开启 -->
+    <view_params>0</view_params>
+      <!-- 行最大长度 -->
+    <max_line_length>200</max_line_length>  
+      
+</configurations>
