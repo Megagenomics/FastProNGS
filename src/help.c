@@ -4,7 +4,6 @@
 
 #include "version.h"
 
-  /* 帮助文档 */
 void help(char *PROGRAM_NAME){
 static char  *help_msg[] = {
  " -a --adapter     The 3' end adapter (if paired data, represent first read). Supporting anchoring '$'.",

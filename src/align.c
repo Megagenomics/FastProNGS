@@ -16,7 +16,6 @@ struct _Match{
 	int query_stop;
 };
 
-/* 查找字符串query是否在reference中,返回(start_q,stop_q,start_r,stop_r,matchs,cost) */
 int locate(
   char *reference,
   char *query,

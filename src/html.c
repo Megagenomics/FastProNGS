@@ -7,7 +7,7 @@
 char *BASE[5]={"A","C","G","T","N"};
 char *BASECOLOR[5]={"#CC0000","#CC6600","#000066","#009900","#666666"};
 char *QUALCOLOR[5]={"#CC9966","#CC6666","#000066","#CC6666","#66CCCC"};
-/*输出html头*/
+
 void html_head()
 {
 char *name = title ? title : "FastProNGS";
@@ -218,7 +218,6 @@ char head[] =
 fprintf(HTML, head, name);
 } /*html_head */
 
-/*输出概要*/
 void html_summary()
 {
 int i=0,j=0;
@@ -227,7 +226,7 @@ char fmsgb[100] = {0};
 fprintf(HTML,
 "    <div id='summary'>"
 "      <div class='title'>Summary(before/<span class='after'>after</span>)</div>");
-/*输出read 1和2的汇总信息*/
+
 conv_units(summary[0][0].reads, fmsga);
 conv_units(summary[0][1].reads, fmsgb);
 fprintf(HTML,
@@ -290,7 +289,7 @@ fprintf(HTML,
 "          <td class='tdt'>%%N</td>"
 "        </tr>"
 );
-/*输出各个read的信息*/
+
 for(i=0;i<=paired;i++){
 conv_units(summary[0][0].reads, fmsga);
 conv_units(summary[0][1].reads, fmsgb);
@@ -321,7 +320,7 @@ fprintf(HTML,
 fprintf(HTML,
 "      </table>");
 
-/*画ACGTN饼图*/
+
 fprintf(HTML,
 "      <div id='piebase'>"
 "        <div id='pie_base_pic'></div>"
@@ -391,8 +390,7 @@ fprintf(HTML,
 "    </div>");/*summary*/
 } /*for html_summary*/
 
-/*带接头和过滤掉read统计*/
-void html_rstat()  /*统计*/
+void html_rstat()
 {
 int i = 0, j = 0;
 uli total=0ul,clean=0ul;
@@ -457,7 +455,7 @@ if(total){
   "</div>");
 }/*if total*/
 }/*html_rstat()*/
-/* 打印接头信息 */
+
 void html_adapter()
 {
 int i = 0, j = 0, k = 0, len = 0, b = 0,max=0;
@@ -467,7 +465,7 @@ fprintf(HTML,
 "      <div class='title'>Adapter</div>");
 for (i = 0; i <= paired; i++){
   if (fronts[i] != NULL)
-  { /*5' 接头*/
+  { 
     fprintf(HTML,
     "      <div class='subtitle'>Read %d</div>",i+1);
     for (j = 0; j < frontn[i]; j++)
@@ -547,7 +545,7 @@ for (i = 0; i <= paired; i++){
     } /*for for j*/
   }   /*for if fronts*/
   if (adapts[i] != NULL)
-  { /*3' 接头*/
+  { 
     fprintf(HTML,
     "      <div class='subtitle'>Read %d</div>",i+1);
     for (j = 0; j < adaptn[i]; j++)
@@ -627,7 +625,7 @@ for (i = 0; i <= paired; i++){
     } /*for for j*/
   }   /*for if adapts*/
   if (anywheres[i] != NULL)
-  { /*5' or 3' 接头*/
+  { 
     fprintf(HTML,
     "      <div class='subtitle'>Read %d</div>",i+1);
     for (j = 0; j < anywheren[i]; j++)
@@ -717,7 +715,7 @@ for (i = 0; i <= paired; i++){
 fprintf(HTML,
 "    </div>");
 } /*html_adapter*/
-/*打印字符串一部分到某端*/
+
 void psubstr(FILE *F, char *c, int s, int t, int l)
 {
   int i = 0;
@@ -731,7 +729,7 @@ void psubstr(FILE *F, char *c, int s, int t, int l)
     fprintf(F, "-");
   
 } /*psubstr*/
-/*打印字符串一部分到某端*/
+
 void psubstr2(FILE *F, char *c, int s, int t, int l)
 {
   int i = 0;
@@ -753,7 +751,6 @@ void psubstr2(FILE *F, char *c, int s, int t, int l)
     fprintf(F, "<span class='chr_'>-</span>");
 } /*psubstr2*/
 
-/*碱基质量分布*/
 void html_qualpic()
 {
 int i=0,j=0,k=0,s=0,t=0,f=0;
@@ -789,7 +786,7 @@ for(i=0;i<=paired;i++){
         for(t=0;t<5;t++){
           tp+=tstat[i][j][k][s][t];
         }
-        if(tp>0ul){Max=s;break;}/*记得修改*/
+        if(tp>0ul){Max=s;break;}
       }
      
       for(s=0;s<MAX_QUALITY;s++){
@@ -798,7 +795,7 @@ for(i=0;i<=paired;i++){
           //printf("%d:%d,%lu ",s,t,tstat[i][j][k][s][t]);
         }/*t*/
       }/*s*/
-      //printf("\n 小:%d,大:%d \n\n\n",Min,Max);
+     
       f=0;
       fprintf(HTML,"var read%d_%s_p%d_qual={y:[",i,j?"after":"before",k);
       fprintf(HTML,"%d,",Min);
@@ -829,7 +826,6 @@ for(i=0;i<=paired;i++){
           break;
         }
       }/*s*/
-      //printf("结束:%d\n",k);
       fprintf(HTML,"%d",Max);
       fprintf(HTML,"],"
       "type:'box',"
@@ -929,7 +925,6 @@ fprintf(HTML,
 "</div>");
 } /*html_qualpic*/
 
-/*碱基输出*/
 void html_basepic()
 {
 int i=0,j=0,k=0,s=0,t=0,f=0;
@@ -1007,7 +1002,6 @@ fprintf(HTML,
 "</div>");
 }/*html_basepic*/
 
-/*长度输出*/
 void html_length()
 {
 int i=0,j=0,k=0,min=0,max=0;
@@ -1085,7 +1079,6 @@ fprintf(HTML,
 "</div>");
 }/*html_length()*/
 
-/*输出命令*/
 void html_cmd(char **argv){
 fprintf(HTML,
 "<div id='cmd'>"
@@ -1098,7 +1091,6 @@ fprintf(HTML,
 "</div>");
 }/*html_tail()*/
 
-/*输出html尾*/
 void html_tail()
 {
 char tail[] =

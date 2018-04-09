@@ -2,7 +2,6 @@
   #include "qc.h"
 #endif
 
-/*接头查找函数*/
 int Adapter(
   char *adapter,
   char *query,

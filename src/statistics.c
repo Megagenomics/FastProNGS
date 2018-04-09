@@ -2,17 +2,16 @@
   #include "qc.h"
 #endif
 
-  /*统计信息*/
 void get_stat(
-  char *r,/*序列*/
-  char *a,/*质量*/
-  int w,/*read标识,0=READ1,1=READ2*/
-  int t,/*处理前后标识,0=before,1=after*/
+  char *r,
+  char *a,
+  int w,
+  int t,
   struct RSTAT rstat[2][2])
 {
   int s=0,i=0;
   while(*r!='\0'){
-    rstat[w][t].ri[i].qual=s=*a - quality_base;/*得出质量值*/
+    rstat[w][t].ri[i].qual=s=*a - quality_base;
     if(s>=quality_threshold)rstat[w][t].qN++;
     if(s>=20)rstat[w][t].q20++;
     if(s>=30)rstat[w][t].q30++;
@@ -32,13 +31,12 @@ void get_stat(
   rstat[w][t].bases=i;
 }/* for get_stat */
 
-  /*归并一个read信息到总线程*/
 void merge_stat_s2t(
-  /*汇总标识,0=全部,1=前,2=后*/
+
   int f,
-  /*汇总结构*/
+
   uli sstat[2][2][MAX_LINE_LENGTH][MAX_QUALITY][5],
-  /*被汇总结构*/
+
   struct RSTAT rstat[2][2])
 {
   int m=0,p=0,i=0,j=0,k=0;
@@ -63,11 +61,11 @@ void merge_stat_s2t(
     }/*j*/
   }/*i*/
 }/*merge_stat_s2t*/
-/*合并线程信息到总信息*/
+
 void merge_stat_t2a(
-  /*汇总结构*/
+
   uli tstat[2][2][MAX_LINE_LENGTH][MAX_QUALITY][5],
-  /*被汇总结构*/
+
   uli sstat[2][2][MAX_LINE_LENGTH][MAX_QUALITY][5])
 {
   int i=0,j=0,k=0,s=0,t=0;
@@ -115,7 +113,7 @@ for(i=0;i<=paired;i++){
 for (i = 0; i <= paired; i++){
   total=0;
   if (fronts[i] != NULL)
-  { /*5' 接头*/
+  { 
     for (j = 0; j < frontn[i]; j++)
     {
       len = strlen(fronts[i][j]);
@@ -133,7 +131,7 @@ for (i = 0; i <= paired; i++){
     } /*for for j*/
   }   /*for if fronts*/
   if (adapts[i] != NULL)
-  { /*3' 接头*/
+  {
     for (j = 0; j < adaptn[i]; j++)
     {
       len = strlen(adapts[i][j]);
@@ -151,7 +149,7 @@ for (i = 0; i <= paired; i++){
     } /*for for j*/
   }   /*for if adapts*/
   if (anywheres[i] != NULL)
-  { /*5' or 3' 接头*/
+  { 
     for (j = 0; j < anywheren[i]; j++)
     {
       len = strlen(anywheres[i][j]);

@@ -3,7 +3,6 @@
   #include "qc.h"
 #endif
 
-/*数据准备函数*/
 void predatai()
 {
   int t=0;
@@ -17,19 +16,15 @@ void predatai()
   }
 }/*for predata*/
 
-/*等待数据预备函数退出*/
 void waitpreouti()
 {
   int t=0;
-  /* 等待所有线程结束 */
   for(t=0;t<=paired;t++){
     pthread_join(tdi[t],NULL);
   }
   FREE(tdi);
 }/*for waitpreout*/
 
-/*填充reads到buf,返回值是reads条数*/
-/*flag等于16表示已经处理完*/
 void fill_reads(void *id)
 {
   int i=0,j=0,r=reads*4,w=0,f=0;
@@ -49,14 +44,13 @@ void fill_reads(void *id)
     }/*for if iflag*/
     pthread_mutex_unlock(&lock_ifile);
 
-    if(w){/*数据没有加载*/
-      if(iftype&(1<<*uid)){/*gz文件*/
+    if(w){
+      if(iftype&(1<<*uid)){
         while(j<r && gzgets(igzfp[*uid],wa[iflag].data[*uid][j],max_line_length)!=NULL){j++;};
-      }else{/*普通文件*/
+      }else{
         while(j<r && fgets(wa[iflag].data[*uid][j],max_line_length,ifp[*uid])!=NULL){j++;};
       }/*for iftype*/
-      /*printf("线程:%d,flag:%d\n",*uid,iflag);*/
-        /*置位标记*/
+
       wa[iflag].num[*uid]=j;
       pthread_mutex_lock(&lock_ifile);
       wa[iflag].flag|=(1<<*uid);
@@ -74,28 +68,12 @@ void fill_reads(void *id)
         }
       }/*for if paired*/
       pthread_mutex_unlock(&lock_ifile);
-    }else{/*数据已经加载*/
+    }else{
       usleep(10);
     }/*for if w*/
   }while(f<threads);
 }/*fill_reads*/
 
-/*数据输出函数*/
-// void predatao()
-// {
-//   tdo=(pthread_t *)xmalloc(sizeof(pthread_t));
-//   if(pthread_create(&tdo,NULL,&put_str,NULL)==-1){
-//     error("create thread error!\n");
-//     abort_file();
-//   }
-// }
-// /*等待数据输出结束函数*/
-// void waitpreouto()
-// {
-//   pthread_join(tdo,NULL);
-//   FREE(tdo);
-// }
-/*将数据分发写入文件*/
 int put_str(int *outlen,char **outbuf)
 {
   int f=-1,i=0,j=0,k=0;
